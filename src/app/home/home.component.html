@@ -29,7 +29,7 @@
     </div>
 
     <label for = "NumberSpeaker" class="parameter">There are </label>
-    <input [ngModel]="nbSpeaker" (ngModelChange)="onNumberSpeakerChange($event)" type="number" id="NumberSpeaker" min="1" max="100" />
+    <input [ngModel]="nbSpeakers" (ngModelChange)="onNumberSpeakerChange($event)" type="number" id="NumberSpeaker" min="1" max="100" />
     <span> speakers</span>
 
     <div class = "timer" id="talking-duration">
@@ -54,7 +54,7 @@
   </div>
 
   <nav>
-    <a (click)="sendData()" routerLink="/meetingroom">Create Meeting</a>
+    <a (click)="sendMeetingData()" routerLink="/meetingroom">Create Meeting</a>
   </nav>
 
 </div>

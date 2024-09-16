@@ -6,14 +6,16 @@
 </header>
 <body>
   <h1>Speaker {{currentSpeaker}}</h1>
-  <h1>{{currentMeetingDurationSeconds}}</h1>
 
-  <h1>{{currentMeetingDurationSeconds}} of {{meetingDurationMinutes}}</h1>
-  <h1>SpeakerDuration of {{talkingDurationMinutes}}</h1>
+  <span>Meeting Duration </span>
+  <time>{{currentMeetingDurationMinutes}}:{{currentMeetingDurationSeconds}} of {{data.meetingDurationMinutes}}:{{data.meetingDurationSeconds}}</time>
+  <br>
+  <span>Talking Duration </span>
+  <time>{{currentTalkingDurationMinutes}}:{{currentMeetingDurationSeconds}} of {{data.talkingDurationMinutes}}:{{data.talkingDurationSeconds}}</time>
 
-
-  <button>Pause timer</button>
+  <br>
+  <button (click)="pauseTimer()">Pause timer</button>
   <button (click)="onClickNextSpeaker()">Next Speaker</button>
-  <button (click)="onClickStartTimer()">Start timer</button>
+  <button (click)="startTimer()">Start timer</button>
 
 </body>

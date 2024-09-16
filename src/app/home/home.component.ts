@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {DataService} from "../Service/DataService";
+import {MeetingParameters} from "../Interface/meeting-parameters";
 
 @Component({
   selector: 'app-home',
@@ -14,7 +15,7 @@ export class HomeComponent {
 
   public talkingDurationMinutes: number;
   public talkingDurationSeconds: number;
-  public nbSpeaker: number;
+  public nbSpeakers: number;
 
 
 
@@ -23,7 +24,7 @@ export class HomeComponent {
     this.meetingDurationSeconds = 15;
     this.talkingDurationMinutes = 5;
     this.talkingDurationSeconds = 15;
-    this.nbSpeaker = 1;
+    this.nbSpeakers = 1;
   }
 
   changeMeetingDuration(minutes:number, seconds:number) {
@@ -79,7 +80,7 @@ export class HomeComponent {
     }
 
     const totalDurationSeconds = (this.meetingDurationMinutes * 60) + this.meetingDurationSeconds;
-    const talkingDuration = Math.floor(totalDurationSeconds / this.nbSpeaker);
+    const talkingDuration = Math.floor(totalDurationSeconds / this.nbSpeakers);
 
     this.talkingDurationMinutes = Math.floor(talkingDuration / 60);
     this.talkingDurationSeconds = talkingDuration % 60;
@@ -93,23 +94,26 @@ export class HomeComponent {
     }
 
     const totalDurationSeconds = (this.talkingDurationMinutes * 60) + this.talkingDurationSeconds;
-    const meetingDuration = Math.floor(totalDurationSeconds * this.nbSpeaker);
+    const meetingDuration = Math.floor(totalDurationSeconds * this.nbSpeakers);
 
     this.meetingDurationMinutes = Math.floor(meetingDuration / 60);
     this.meetingDurationSeconds = meetingDuration % 60
   }
 
-
   onNumberSpeakerChange(numberSpeakerEvent:number) {
-    this.nbSpeaker = numberSpeakerEvent;
+    this.nbSpeakers = numberSpeakerEvent;
+    this.adjustMeetingDurations();
   }
 
-  sendData() {
-    const val1= this.meetingDurationMinutes;
-    const val2= this.nbSpeaker;
-    const val3= this.talkingDurationMinutes;
-    this.dataService.updateMeetingData(val1, val2, val3);
-    console.log(val1, val2, val3);
+  sendMeetingData() {
+    const meetingDurationMinutes = this.meetingDurationMinutes;
+    const meetingDurationSeconds = this.meetingDurationSeconds;
+    const talkingDurationMinutes = this.talkingDurationMinutes;
+    const talkingDurationSeconds = this.talkingDurationSeconds;
+    const nbSpeakers = this.nbSpeakers;
+    console.log("SENDING DATA")
+    const meetingParams: MeetingParameters = {meetingDurationMinutes, meetingDurationSeconds, talkingDurationMinutes, talkingDurationSeconds, nbSpeakers};
+    this.dataService.updateMeetingData(meetingParams)
   }
 
 

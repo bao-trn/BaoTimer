@@ -20,12 +20,12 @@
   <div id="meeting-option">
     <div class = "timer" id="meeting-duration">
       <span>The meeting duration will be </span>
-      <time>x:y</time>
+      <time>{{meetingDurationMinutes}}:{{meetingDurationSeconds}}</time>
       <span> minutes</span>
-      <button>+1min</button>
-      <button>-1min</button>
-      <button>+3Os</button>
-      <button>-30s</button>
+      <button (click)="changeMeetingDuration(1, 0)">+1min</button>
+      <button (click)="changeMeetingDuration(-1, 0)">-1min</button>
+      <button (click)="changeMeetingDuration(0,30)">+3Os</button>
+      <button (click)="changeMeetingDuration(0,-30)">-30s</button>
     </div>
 
     <label for = "NumberSpeaker" class="parameter">There are </label>
@@ -34,10 +34,10 @@
 
     <div class = "timer" id="talking-duration">
       <span>Each speaking for </span>
-      <time>z</time>
+      <time>{{talkingDurationMinutes}}:{{talkingDurationSeconds}}</time>
       <span> minutes</span>
-      <button>+30s</button>
-      <button>-30s</button>
+      <button (click)="changeTalkingDuration(0,30)">+30s</button>
+      <button (click)="changeTalkingDuration(0,-30)">-30s</button>
     </div>
   </div>
 
@@ -45,7 +45,7 @@
   <h3> Allow overtime when a speaker's time is up</h3>
 
   <div>
-    <input type = "radio" id = "OvertimeOptional" name = "optional">
+    <input type = "radio" id = "OvertimeOptional" name = "optional" >
     <label for = "OvertimeOptional">Optional</label>
     <input type = "radio" id = "OvertimeAlways" name = "optional">
     <label for = "OvertimeAlways">Always</label>

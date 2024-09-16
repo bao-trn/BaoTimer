@@ -1,0 +1,32 @@
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+* {
+  margin : 0;
+  padding : 0;
+}
+
+html {
+  background-color: bisque;
+}
+
+header {
+  background-color: lightblue;
+  height: 19vh;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: burlywood;
+  height : 70vh;
+}
+
+footer {
+  display: flex;
+  justify-content: flex-end;
+  background-color: lightcoral;
+  height : 9vh;
+}

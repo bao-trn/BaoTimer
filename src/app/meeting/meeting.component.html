@@ -1,0 +1,19 @@
+<header>
+  <nav>
+    <a routerLink="/home">Cancel Meeting</a>
+
+  </nav>
+</header>
+<body>
+  <h1>Speaker {{currentSpeaker}}</h1>
+  <h1>{{currentMeetingDurationSeconds}}</h1>
+
+  <h1>{{currentMeetingDurationSeconds}} of {{meetingDurationMinutes}}</h1>
+  <h1>SpeakerDuration of {{talkingDurationMinutes}}</h1>
+
+
+  <button>Pause timer</button>
+  <button (click)="onClickNextSpeaker()">Next Speaker</button>
+  <button (click)="onClickStartTimer()">Start timer</button>
+
+</body>

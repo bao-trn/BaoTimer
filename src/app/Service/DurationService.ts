@@ -9,10 +9,13 @@ import {MeetingParameters} from "../Interface/meeting-parameters";
 
 export class DurationService {
 
+  currentSpeaker:number = 1;
   time:number = 0;
   talkingTime:number = 0;
+  remainingTalkingTime:number = 0;
+  initialTalkingDuration:number = 0;
   isRunning:boolean = false;
-  data:MeetingParameters = {meetingDuration: 8, talkingDuration: 4, nbSpeakers: 2, overtime:''};
+  data:MeetingParameters = {meetingDuration: 60, talkingDuration: 15, nbSpeakers: 4, overtime:'always'};
 
   private timerSub:Subscription | null = null;
 
@@ -26,16 +29,15 @@ export class DurationService {
   constructor(private dataService:DataService<number>) {
     this.dataService.meetingData.subscribe(data => {
       this.data = data;
+      this.remainingTalkingTime = data.talkingDuration;
+      this.initialTalkingDuration = data.talkingDuration;
     })
   }
 
   startTimer() {
     if (!this.timerSub) {
       this.timerSub = interval(1000).subscribe(() => {
-        this.time++;
-        this.talkingTime++
-        this.timeSubject.next(this.time);
-        this.talkingTimeSubject.next(this.talkingTime);
+        this.incrementTime();
         this.handleMeetingDuration(this.data.meetingDuration);
         this.handleTalkingDuration(this.data.talkingDuration);
         console.log(this.time)
@@ -52,6 +54,26 @@ export class DurationService {
     this.isRunning = false;
   }
 
+  incrementTime() {
+    this.time++;
+    this.talkingTime++
+    this.timeSubject.next(this.time);
+    this.talkingTimeSubject.next(this.talkingTime);
+    this.remainingTalkingTime--;
+  }
+
+  nextSpeaker() {
+    if (this.currentSpeaker < this.data.nbSpeakers) {
+      this.currentSpeaker++;
+      this.talkingTime = 0;
+      this.talkingTimeSubject.next(this.talkingTime);
+      if (this.data.overtime === 'overflow') {
+        this.data.talkingDuration = this.initialTalkingDuration + this.remainingTalkingTime;
+      }
+      this.remainingTalkingTime = this.data.talkingDuration;
+    }
+  }
+
   handleMeetingDuration(meetingDuration:number) {
     if (this.time >= meetingDuration) {
       this.pauseTimer();
@@ -62,6 +84,7 @@ export class DurationService {
   handleTalkingDuration(talkingDuration:number) {
     if (this.talkingTime >= talkingDuration) {
       switch (this.data.overtime) {
+        case 'overflow':
         case 'always': {
           this.data.meetingDuration++;
           console.log("ALWAYS");
@@ -74,11 +97,11 @@ export class DurationService {
         case 'never': {
           console.log("NEVER")
           this.talkingTime = 0
-          this.dataService.updateSpeakerData(true);
+          this.currentSpeaker++;
           break;
         }
       } // end of switch
-    } //end of if
+    }//end of if
   }
 
 

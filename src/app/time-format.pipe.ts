@@ -14,7 +14,8 @@ export class TimeFormatPipe implements PipeTransform {
       const minutesStr = minutes < 10 ? '0' + minutes : minutes;
       const secondsStr = seconds < 10 ? '0' + seconds : seconds;
 
-      return `${hoursStr}:${minutesStr}:${secondsStr}`;
+      //return `${hoursStr}:${minutesStr}:${secondsStr}`; //add if hours needed
+      return `${minutesStr}:${secondsStr}`;
   }
 
 

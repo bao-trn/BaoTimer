@@ -8,11 +8,13 @@ import {MeetingParameters} from "../Interface/meeting-parameters";
 export class DataService<T> {
 
   private initialMeetingData:MeetingParameters = {
-    meetingDuration: 8,
-    talkingDuration: 4,
-    nbSpeakers: 2,
-    overtime:''
+    meetingDuration: 60,
+    talkingDuration: 15,
+    nbSpeakers: 4,
+    overtime:'always'
   }
+
+
 
 
 

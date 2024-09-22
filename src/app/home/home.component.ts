@@ -19,34 +19,50 @@ export class HomeComponent {
   constructor(private dataService:DataService<any>) {
   }
 
-  //TODO change all meeting to be computed with seconds within a service and handle negatives
+  //TODO change all meeting to be computed with seconds within a service
 
   changeMeetingDuration(seconds:number) {
     this.meetingDuration += seconds;
-    this.adjustMeetingDurations()
+    this.adjustMeetingDurations(seconds);
   }
 
   changeTalkingDuration(seconds:number) {
     this.talkingDuration += seconds;
-    this.adjustTalkingDurations();
+    this.adjustTalkingDurations(seconds);
   }
 
   //round durations to closest 30s bound and adjust the timers depending on the number of speakers
-  adjustMeetingDurations() {
-    if ((this.meetingDuration % 30) != 0 && (this.meetingDuration - 30) < 0) {
-      this.meetingDuration = 0;
-    } else if ((this.meetingDuration % 30) != 0) {
-      this.meetingDuration = 30;
+  adjustMeetingDurations(seconds:number) {
+    if (seconds % 60 === 0) { //if negative then 0 else round to closest 60 bound
+      if (this.meetingDuration < 0) {
+        this.meetingDuration = 0;
+      } else {
+        this.meetingDuration -= this.meetingDuration % 60;
+      }
+    } else if (seconds % 30 === 0) { //if negative then 0 else round to closest 30 bound
+      if (this.meetingDuration <= 0) {
+        this.meetingDuration = 0;
+      } else {
+        this.meetingDuration -= this.meetingDuration % 30
+      }
     }
 
     this.talkingDuration = Math.floor(this.meetingDuration / this.nbSpeakers);
   }
 
-  adjustTalkingDurations() {
-    if ((this.talkingDuration % 30) != 0 && (this.talkingDuration - 30) < 0) {
-      this.talkingDuration = 0;
-    } else if ((this.talkingDuration % 30) != 0) {
-      this.talkingDuration = 30;
+  adjustTalkingDurations(seconds:number) {
+    if (seconds % 60 === 0) { //if negative then 0 else round to closest 60 bound
+      if (this.talkingDuration < 0) {
+        this.talkingDuration = 0;
+      } else {
+        this.talkingDuration -= this.talkingDuration % 60;
+      }
+    } else if (seconds % 30 === 0) { //if negative then 0 else round to closest 30 bound
+      if (this.talkingDuration <= 0) {
+        this.talkingDuration = 0;
+      } else {
+        this.talkingDuration -= this.talkingDuration % 30
+      }
     }
 
     this.meetingDuration = Math.floor(this.talkingDuration * this.nbSpeakers);
@@ -54,7 +70,6 @@ export class HomeComponent {
 
   onNumberSpeakerChange(numberSpeakerEvent:number) {
     this.nbSpeakers = numberSpeakerEvent;
-    this.adjustMeetingDurations();
   }
 
   sendMeetingData() {

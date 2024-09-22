@@ -41,11 +41,13 @@
       <h3> Allow overtime when a speaker's time is up</h3>
 
       <div class="overtime-container">
-        <input class="radio" type="radio" id = "OvertimeAlways" name="overtime" [(ngModel)]="overtime" value="always">
+        <input class="radio" type="radio" id="OvertimeAlways" name="overtime" [(ngModel)]="overtime" value="always">
         <label for="OvertimeAlways"> Always </label>
-        <input class="radio" type="radio" id = "OvertimeOptional" name="overtime"  [(ngModel)]="overtime" value="optional">
+        <input class="radio" type="radio" id="OvertimePool" name="overtime" [(ngModel)]="overtime" value="overflow">
+        <label for="OvertimePool"> Overflow </label>
+        <input class="radio" type="radio" id="OvertimeOptional" name="overtime"  [(ngModel)]="overtime" value="optional">
         <label for="OvertimeOptional"> Optional </label>
-        <input class="radio" type="radio" id = "OvertimeNever" name="overtime" [(ngModel)]="overtime" value="never">
+        <input class="radio" type="radio" id="OvertimeNever" name="overtime" [(ngModel)]="overtime" value="never">
         <label for="OvertimeNever"> Never </label>
       </div>
 

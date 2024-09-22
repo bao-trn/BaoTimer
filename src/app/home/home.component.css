@@ -1,32 +1,73 @@
-*, *:before, *:after {
-  box-sizing: border-box;
+/* BNP Color Palette
+
+darker green: Hex: #007348
+dark green : Hex: #008755
+green: Hex: #39a87b
+light green : Hex: #6abb97
+lighter green: Hex: #8bc8aa
+
+*/
+
+main {
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
-* {
-  margin : 0;
-  padding : 0;
-}
-
-html {
-  background-color: bisque;
-}
-
-header {
-  background-color: lightblue;
-  height: 19vh;
-}
-
-body {
+.left-body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: burlywood;
-  height : 70vh;
+  flex-shrink: 1;
+  background-color: white;
+  width: 50%;
+  font-size: 35px;
 }
 
-footer {
+.right-body {
   display: flex;
-  justify-content: flex-end;
-  background-color: lightcoral;
-  height : 9vh;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 1;
+  width: 50%;
+  font-size: 20px;
 }
+
+
+.clickable {
+  background-color: #39a87b;
+  color: white;
+  border: none;
+  padding: 0.5vh 1vw;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 4px;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: none;
+  transition: background-color 0.3s ease;
+}
+
+.clickable:hover {
+  background-color: #008755;
+}
+
+.timer {
+  padding: 2vh 0;
+}
+
+.overtime-container {
+  padding: 2vh 0;
+}
+
+.radio {
+  cursor: pointer;
+}
+
+.create-meeting {
+  padding: 0.75vh 1.25vw;
+}
+
+
+

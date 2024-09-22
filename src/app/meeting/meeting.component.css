@@ -1,11 +1,81 @@
-html {
-  background-color: rebeccapurple;
+*, *:before, *:after {
+  box-sizing: border-box;
 }
 
-body {
-  background-color: cadetblue
+@font-face {
+  font-family: 'Raleway';
+  src: url('src/assets/fonts/Raleway/static/Raleway-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }
 
-p {
-  background-color: aqua;
+@font-face {
+  font-family: 'Raleway-bold';
+  src: url('src/assets/fonts/Raleway/static/Raleway-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
 }
+
+/* BNP Color Palette
+
+darker green: Hex: #007348
+dark green : Hex: #008755
+green: Hex: #39a87b
+light green : Hex: #6abb97
+lighter green: Hex: #8bc8aa
+
+*/
+
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.speaker {
+  font-size: 3rem;
+  margin-bottom: 8vh;
+}
+
+.timer-label {
+  font-size: 1.5rem;
+}
+
+time {
+  font-size: 2rem;
+  margin-bottom: 5vh;
+}
+
+.stopwatch {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.timer-button {
+  background-color: #39a87b;
+  color: white;
+  border: none;
+  padding: 0.5vh 1vw;
+  margin: 0.5vh 0.25vw;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 4px;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: none;
+  transition: background-color 0.3s ease;
+  width: 100px;
+}
+
+.timer-button:hover {
+  background-color: #008755;
+}
+
+.cancel-meeting {
+  color: black;
+  text-align: end;
+  text-decoration: none;
+}
+

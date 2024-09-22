@@ -1,57 +1,64 @@
 <head>
   <title>BaoTimer</title>
 </head>
-
-<header>
-  <h1>Standup Timer App</h1>
-</header>
-
 <body>
-<div>
-  <div id="meeting-option">
-    <div class = "timer" id="meeting-duration">
-      <span>The meeting duration will be </span>
-      <time>{{meetingDurationMinutes}}:{{meetingDurationSeconds}}</time>
-      <span> minutes</span>
-      <button (click)="changeMeetingDuration(1, 0)">+1min</button>
-      <button (click)="changeMeetingDuration(-1, 0)">-1min</button>
-      <button (click)="changeMeetingDuration(0,30)">+3Os</button>
-      <button (click)="changeMeetingDuration(0,-30)">-30s</button>
+  <header>
+    <span>BNP Paribas CIB</span>
+  </header>
+
+  <main>
+    <div class="left-body">
+      <h1>Standup Timer</h1>
     </div>
 
-    <label for = "NumberSpeaker" class="parameter">There are </label>
-    <input [ngModel]="nbSpeakers" (ngModelChange)="onNumberSpeakerChange($event)" type="number" id="NumberSpeaker" min="1" max="100" />
-    <span> speakers</span>
+    <div class="right-body">
+      <div id="meeting-option">
+        <div class="timer" id="meeting-duration">
+          <span>The meeting duration will be </span>
+          <time>{{meetingDurationMinutes}}:{{meetingDurationSeconds}}</time>
+          <span> minutes </span>
+          <button class="clickable" (click)="changeMeetingDuration(1, 0)">+1min</button>
+          <button class="clickable" (click)="changeMeetingDuration(-1, 0)">-1min</button>
+          <button class="clickable" (click)="changeMeetingDuration(0,30)">+3Os</button>
+          <button class="clickable" (click)="changeMeetingDuration(0,-30)">-30s</button>
+        </div>
 
-    <div class = "timer" id="talking-duration">
-      <span>Each speaking for </span>
-      <time>{{talkingDurationMinutes}}:{{talkingDurationSeconds}}</time>
-      <span> minutes</span>
-      <button (click)="changeTalkingDuration(0,30)">+30s</button>
-      <button (click)="changeTalkingDuration(0,-30)">-30s</button>
+        <div class="timer">
+          <label for = "NumberSpeaker" class="parameter">There are </label>
+          <input [ngModel]="nbSpeakers" (ngModelChange)="onNumberSpeakerChange($event)" type="number" id="NumberSpeaker" min="1" max="100" />
+          <span> speakers</span>
+        </div>
+
+
+        <div class="timer" id="talking-duration">
+          <span>Each speaking for </span>
+          <time>{{talkingDurationMinutes}}:{{talkingDurationSeconds}}</time>
+          <span> minutes </span>
+          <button class="clickable" (click)="changeTalkingDuration(0,30)">+30s</button>
+          <button class="clickable" (click)="changeTalkingDuration(0,-30)">-30s</button>
+        </div>
+      </div>
+
+
+      <h3> Allow overtime when a speaker's time is up</h3>
+
+      <div class="overtime-container">
+        <input class="radio" type="radio" id = "OvertimeAlways" name="overtime" [(ngModel)]="overtime" value="always">
+        <label for="OvertimeAlways"> Always </label>
+        <input class="radio" type="radio" id = "OvertimeOptional" name="overtime"  [(ngModel)]="overtime" value="optional">
+        <label for="OvertimeOptional"> Optional </label>
+        <input class="radio" type="radio" id = "OvertimeNever" name="overtime" [(ngModel)]="overtime" value="never">
+        <label for="OvertimeNever"> Never </label>
+      </div>
+
+      <nav>
+        <a class="create-meeting" (click)="sendMeetingData()" routerLink="/meeting-room">Create Meeting</a>
+      </nav>
     </div>
-  </div>
+  </main>
 
-
-  <h3> Allow overtime when a speaker's time is up</h3>
-
-  <div>
-    <input type="radio" id = "OvertimeAlways" name="overtime" [(ngModel)]="overtime" value="always">
-    <label for="OvertimeAlways">Always</label>
-    <input type="radio" id = "OvertimeOptional" name="overtime"  [(ngModel)]="overtime" value="optional">
-    <label for="OvertimeOptional">Optional</label>
-    <input type="radio" id = "OvertimeNever" name="overtime" [(ngModel)]="overtime" value="never">
-    <label for="OvertimeNever">Never</label>
-  </div>
-
-  <nav>
-    <a (click)="sendMeetingData()" routerLink="/meeting-room">Create Meeting</a>
-  </nav>
-
-</div>
-
+  <footer>
+    BNP Paribas CIB
+  </footer>
 </body>
 
-<footer>
-  This is a footer
-</footer>

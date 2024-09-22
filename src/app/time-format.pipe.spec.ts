@@ -1,4 +1,4 @@
-import { TimeFormatPipe } from './time-format.pipe';
+import {TimeFormatPipe} from './time-format.pipe';
 
 describe('TimeFormatPipe', () => {
   it('create an instance', () => {

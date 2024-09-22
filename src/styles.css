@@ -1,1 +1,74 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* BNP Color Palette
+darker green: Hex: #007348
+dark green : Hex: #008755
+green: Hex: #39a87b
+light green : Hex: #6abb97
+lighter green: Hex: #8bc8aa
+*/
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: 'Raleway';
+  src: url('src/assets/fonts/Raleway/static/Raleway-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Raleway-bold';
+  src: url('src/assets/fonts/Raleway/static/Raleway-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+app-root {
+  height: 100%
+}
+
+html, body{
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  min-height : 100%;
+  min-width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: Arial, sans-serif;
+  color: black;
+  background-color: white;
+}
+
+header {
+  width: 100vw;
+  flex-shrink: 0;
+  background-color: #39a87b;
+  font-family: 'Raleway', sans-serif;
+  color: white;
+  border: 1px solid black;
+}
+
+main {
+  flex-grow: 1;
+}
+
+footer {
+  width: 100vw;
+  display: flex;
+  justify-content: flex-end;
+  flex-shrink: 0;
+  background-color: #008755;
+  font-family: 'Raleway', sans-serif;
+  color: white;
+}
+

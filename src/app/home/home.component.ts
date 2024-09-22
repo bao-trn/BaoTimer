@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {DataService} from "../Service/DataService";
 import {MeetingParameters} from "../Interface/meeting-parameters";
 

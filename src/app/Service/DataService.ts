@@ -1,7 +1,6 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {BehaviorSubject, Observable} from 'rxjs';
 import {MeetingParameters} from "../Interface/meeting-parameters";
-import {MeetingTicks} from "../Interface/meeting-ticks";
 
 @Injectable({
   providedIn: 'root',

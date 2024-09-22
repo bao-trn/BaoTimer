@@ -1,8 +1,6 @@
 import {Component} from '@angular/core';
 import {DataService} from "../Service/DataService";
-import {MeetingParameters} from "../Interface/meeting-parameters";
 import {DurationService} from "../Service/DurationService";
-import {async} from "rxjs";
 
 @Component({
   selector: 'app-meeting',

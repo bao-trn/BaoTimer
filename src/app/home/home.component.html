@@ -15,12 +15,11 @@
       <div id="meeting-option">
         <div class="timer" id="meeting-duration">
           <span>The meeting duration will be </span>
-          <time>{{meetingDurationMinutes}}:{{meetingDurationSeconds}}</time>
-          <span> minutes </span>
-          <button class="clickable" (click)="changeMeetingDuration(1, 0)">+1min</button>
-          <button class="clickable" (click)="changeMeetingDuration(-1, 0)">-1min</button>
-          <button class="clickable" (click)="changeMeetingDuration(0,30)">+3Os</button>
-          <button class="clickable" (click)="changeMeetingDuration(0,-30)">-30s</button>
+          <time>{{meetingDuration | timeFormat}} </time>
+          <button class="clickable" (click)="changeMeetingDuration(60)">+1min</button>
+          <button class="clickable" (click)="changeMeetingDuration(-60)">-1min</button>
+          <button class="clickable" (click)="changeMeetingDuration(30)">+3Os</button>
+          <button class="clickable" (click)="changeMeetingDuration(-30)">-30s</button>
         </div>
 
         <div class="timer">
@@ -32,10 +31,9 @@
 
         <div class="timer" id="talking-duration">
           <span>Each speaking for </span>
-          <time>{{talkingDurationMinutes}}:{{talkingDurationSeconds}}</time>
-          <span> minutes </span>
-          <button class="clickable" (click)="changeTalkingDuration(0,30)">+30s</button>
-          <button class="clickable" (click)="changeTalkingDuration(0,-30)">-30s</button>
+          <time>{{talkingDuration | timeFormat}} </time>
+          <button class="clickable" (click)="changeTalkingDuration(30)">+30s</button>
+          <button class="clickable" (click)="changeTalkingDuration(30)">-30s</button>
         </div>
       </div>
 

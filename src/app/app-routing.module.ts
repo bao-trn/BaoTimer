@@ -5,7 +5,7 @@ import { AppComponent} from "./app.component";
 import {HomeComponent} from "./home/home.component";
 
 const routes: Routes = [
-  { path: 'meetingroom', component: MeetingComponent },
+  { path: 'meeting-room', component: MeetingComponent },
   { path: 'home', component: HomeComponent },
   { path: '', redirectTo: '/home', pathMatch: "full" }
 ]

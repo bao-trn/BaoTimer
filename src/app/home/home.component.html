@@ -1,12 +1,3 @@
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * The content below * * * * * * * * * * * -->
-<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
-<!-- * * * * * * * * * * and can be replaced. * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * Delete the template below * * * * * * * * * * -->
-<!-- * * * * * * * to get started with your project! * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-
 <head>
   <title>BaoTimer</title>
 </head>
@@ -45,16 +36,16 @@
   <h3> Allow overtime when a speaker's time is up</h3>
 
   <div>
-    <input type = "radio" id = "OvertimeOptional" name = "optional" >
-    <label for = "OvertimeOptional">Optional</label>
-    <input type = "radio" id = "OvertimeAlways" name = "optional">
-    <label for = "OvertimeAlways">Always</label>
-    <input type = "radio" id = "OvertimeNever" name = "optional">
-    <label for = "OvertimeNever">Never</label>
+    <input type="radio" id = "OvertimeAlways" name="overtime" [(ngModel)]="overtime" value="always">
+    <label for="OvertimeAlways">Always</label>
+    <input type="radio" id = "OvertimeOptional" name="overtime"  [(ngModel)]="overtime" value="optional">
+    <label for="OvertimeOptional">Optional</label>
+    <input type="radio" id = "OvertimeNever" name="overtime" [(ngModel)]="overtime" value="never">
+    <label for="OvertimeNever">Never</label>
   </div>
 
   <nav>
-    <a (click)="sendMeetingData()" routerLink="/meetingroom">Create Meeting</a>
+    <a (click)="sendMeetingData()" routerLink="/meeting-room">Create Meeting</a>
   </nav>
 
 </div>

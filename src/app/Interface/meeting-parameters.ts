@@ -1,9 +1,8 @@
 export interface MeetingParameters {
 
-  meetingDurationMinutes:number;
-  meetingDurationSeconds:number;
-  talkingDurationMinutes:number;
-  talkingDurationSeconds:number;
+  meetingDuration:number;
+  talkingDuration:number;
   nbSpeakers:number;
+  overtime:string;
 
 }

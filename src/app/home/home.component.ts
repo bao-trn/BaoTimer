@@ -17,15 +17,19 @@ export class HomeComponent {
   public talkingDurationSeconds: number;
   public nbSpeakers: number;
 
+  public overtime:string = 'always';
+
 
 
   constructor(private dataService:DataService<any>) {
-    this.meetingDurationMinutes = 5;
-    this.meetingDurationSeconds = 15;
-    this.talkingDurationMinutes = 5;
+    this.meetingDurationMinutes = 1;
+    this.meetingDurationSeconds = 0;
+    this.talkingDurationMinutes = 0;
     this.talkingDurationSeconds = 15;
-    this.nbSpeakers = 1;
+    this.nbSpeakers = 4;
   }
+
+  //TODO change all meeting to be computed with seconds within a service instead of minutes and seconds
 
   changeMeetingDuration(minutes:number, seconds:number) {
     this.meetingDurationMinutes += minutes;
@@ -106,13 +110,13 @@ export class HomeComponent {
   }
 
   sendMeetingData() {
-    const meetingDurationMinutes = this.meetingDurationMinutes;
-    const meetingDurationSeconds = this.meetingDurationSeconds;
-    const talkingDurationMinutes = this.talkingDurationMinutes;
-    const talkingDurationSeconds = this.talkingDurationSeconds;
+    const meetingDuration = (this.meetingDurationMinutes * 60) + this.meetingDurationSeconds;
+    const talkingDuration = (this.talkingDurationMinutes * 60) + this.talkingDurationSeconds;
     const nbSpeakers = this.nbSpeakers;
-    console.log("SENDING DATA")
-    const meetingParams: MeetingParameters = {meetingDurationMinutes, meetingDurationSeconds, talkingDurationMinutes, talkingDurationSeconds, nbSpeakers};
+    const overtime = this.overtime;
+    const meetingParams: MeetingParameters = {meetingDuration, talkingDuration, nbSpeakers, overtime};
+    console.log("SENDING DATA" + meetingParams.overtime);
+
     this.dataService.updateMeetingData(meetingParams)
   }
 

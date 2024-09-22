@@ -7,15 +7,16 @@
 <body>
   <h1>Speaker {{currentSpeaker}}</h1>
 
-  <span>Meeting Duration </span>
-  <time>{{currentMeetingDurationMinutes}}:{{currentMeetingDurationSeconds}} of {{data.meetingDurationMinutes}}:{{data.meetingDurationSeconds}}</time>
+  <span> </span>
+  <time> Meeting {{(durationService.time$ | async) ?? 0 | timeFormat}} out of {{durationService.data.meetingDuration | timeFormat}}</time>
+  <time> Talking {{(durationService.talkingTime$ | async) ?? 0 | timeFormat}} out of {{durationService.data.talkingDuration | timeFormat}}</time>
   <br>
-  <span>Talking Duration </span>
-  <time>{{currentTalkingDurationMinutes}}:{{currentMeetingDurationSeconds}} of {{data.talkingDurationMinutes}}:{{data.talkingDurationSeconds}}</time>
+  <span>Timer should be here</span>
+  <time> of </time>
 
   <br>
-  <button (click)="pauseTimer()">Pause timer</button>
-  <button (click)="onClickNextSpeaker()">Next Speaker</button>
-  <button (click)="startTimer()">Start timer</button>
+  <button (click)="durationService.pauseTimer()">Pause timer</button>
+  <button>Next Speaker</button>
+  <button (click)="durationService.startTimer()">Start timer</button>
 
 </body>

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import {MeetingParameters} from "../Interface/meeting-parameters";
+import {MeetingTicks} from "../Interface/meeting-ticks";
 
 @Injectable({
   providedIn: 'root',
@@ -8,19 +9,25 @@ import {MeetingParameters} from "../Interface/meeting-parameters";
 export class DataService<T> {
 
   private initialMeetingData:MeetingParameters = {
-    meetingDurationMinutes: 8,
-    meetingDurationSeconds: 0,
-    talkingDurationMinutes: 4,
-    talkingDurationSeconds: 0,
-    nbSpeakers: 2
+    meetingDuration: 8,
+    talkingDuration: 4,
+    nbSpeakers: 2,
+    overtime:''
   }
 
-  private dataSource: BehaviorSubject<T | null> = new BehaviorSubject<T | null>(null);
+
+
+  dataSource: BehaviorSubject<T | null> = new BehaviorSubject<T | null>(null);
+  speakerData: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
   meetingData: BehaviorSubject<MeetingParameters> = new BehaviorSubject<MeetingParameters>(this.initialMeetingData);
 
   currentData: Observable<T | null> = this.dataSource.asObservable()
   currentMeetingData: Observable<MeetingParameters> = this.meetingData.asObservable();
 
+
+  updateSpeakerData(data:boolean) {
+    this.speakerData.next(data);
+  }
 
   updateData(data: T | null) {
     this.dataSource.next(data);
@@ -29,6 +36,8 @@ export class DataService<T> {
   updateMeetingData(data:MeetingParameters) {
     this.meetingData.next(data);
   }
+
+
 
 
 }

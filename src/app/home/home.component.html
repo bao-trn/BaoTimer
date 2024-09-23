@@ -24,7 +24,7 @@
 
         <div class="timer">
           <label for = "NumberSpeaker" class="parameter">There are </label>
-          <input [ngModel]="nbSpeakers" (ngModelChange)="onNumberSpeakerChange($event)" type="number" id="NumberSpeaker" min="1" max="100" />
+          <input [ngModel]="nbSpeakers" (ngModelChange)="changeSpeaker($event)" type="number" id="NumberSpeaker" min="1" max="100" />
           <span> speakers</span>
         </div>
 
@@ -33,7 +33,7 @@
           <span>Each speaking for </span>
           <time>{{talkingDuration | timeFormat}} </time>
           <button class="clickable" (click)="changeTalkingDuration(30)">+30s</button>
-          <button class="clickable" (click)="changeTalkingDuration(30)">-30s</button>
+          <button class="clickable" (click)="changeTalkingDuration(-30)">-30s</button>
         </div>
       </div>
 

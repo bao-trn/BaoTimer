@@ -1,75 +1,45 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {DataService} from "../Service/DataService";
 import {MeetingParameters} from "../Interface/meeting-parameters";
+import {DurationService} from "../Service/DurationService";
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit{
 
-  public meetingDuration:number = 60; //TODO low values for testing purpose, to change
-  public talkingDuration:number = 15;
-  public nbSpeakers:number = 4;
+  public meetingDuration:number = 0;
+  public talkingDuration:number = 0;
+  public nbSpeakers:number = 0;
   public overtime:string = 'always';
 
-
-
-  constructor(private dataService:DataService<any>) {
+  constructor(private dataService:DataService<MeetingParameters>, private durationService:DurationService) {
   }
 
-  //TODO change all meeting to be computed with seconds within a service
+  ngOnInit(): void {
+    console.log(this.meetingDuration)
+    this.durationService.meetingDuration$.subscribe(time => {
+      this.meetingDuration = time;
+    })
+    this.durationService.talkingDuration$.subscribe(time => {
+      this.talkingDuration = time;
+    })
+    this.nbSpeakers = this.durationService.nbSpeakers;
+  }
+
 
   changeMeetingDuration(seconds:number) {
-    this.meetingDuration += seconds;
-    this.adjustMeetingDurations(seconds);
+    this.durationService.changeMeetingDuration(seconds);
   }
 
   changeTalkingDuration(seconds:number) {
-    this.talkingDuration += seconds;
-    this.adjustTalkingDurations(seconds);
+    this.durationService.changeTalkingDuration(seconds)
   }
 
-  //round durations to closest 30s bound and adjust the timers depending on the number of speakers
-  adjustMeetingDurations(seconds:number) {
-    if (seconds % 60 === 0) { //if negative then 0 else round to closest 60 bound
-      if (this.meetingDuration < 0) {
-        this.meetingDuration = 0;
-      } else {
-        this.meetingDuration -= this.meetingDuration % 60;
-      }
-    } else if (seconds % 30 === 0) { //if negative then 0 else round to closest 30 bound
-      if (this.meetingDuration <= 0) {
-        this.meetingDuration = 0;
-      } else {
-        this.meetingDuration -= this.meetingDuration % 30
-      }
-    }
-
-    this.talkingDuration = Math.floor(this.meetingDuration / this.nbSpeakers);
-  }
-
-  adjustTalkingDurations(seconds:number) {
-    if (seconds % 60 === 0) { //if negative then 0 else round to closest 60 bound
-      if (this.talkingDuration < 0) {
-        this.talkingDuration = 0;
-      } else {
-        this.talkingDuration -= this.talkingDuration % 60;
-      }
-    } else if (seconds % 30 === 0) { //if negative then 0 else round to closest 30 bound
-      if (this.talkingDuration <= 0) {
-        this.talkingDuration = 0;
-      } else {
-        this.talkingDuration -= this.talkingDuration % 30
-      }
-    }
-
-    this.meetingDuration = Math.floor(this.talkingDuration * this.nbSpeakers);
-  }
-
-  onNumberSpeakerChange(numberSpeakerEvent:number) {
-    this.nbSpeakers = numberSpeakerEvent;
+  changeSpeaker(event:number) {
+    this.durationService.onNumberSpeakerChange(event);
   }
 
   sendMeetingData() {
@@ -78,8 +48,7 @@ export class HomeComponent {
     const nbSpeakers = this.nbSpeakers;
     const overtime = this.overtime;
     const meetingParams: MeetingParameters = {meetingDuration, talkingDuration, nbSpeakers, overtime};
-    console.log("SENDING DATA" + meetingParams.overtime);
-
+    console.log("SENDING DATA");
     this.dataService.updateMeetingData(meetingParams)
   }
 

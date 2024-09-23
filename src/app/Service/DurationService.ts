@@ -1,7 +1,5 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject, interval, Subscription} from "rxjs";
-import {DataService} from "./DataService";
-import {MeetingParameters} from "../Interface/meeting-parameters";
+import {BehaviorSubject} from "rxjs";
 
 @Injectable({
   providedIn: 'root',
@@ -9,108 +7,70 @@ import {MeetingParameters} from "../Interface/meeting-parameters";
 
 export class DurationService {
 
-  currentSpeaker:number = 1;
-  time:number = 0;
-  talkingTime:number = 0;
-  remainingTalkingTime:number = 0;
-  initialTalkingDuration:number = 0;
-  isRunning:boolean = false;
-  data:MeetingParameters = {meetingDuration: 60, talkingDuration: 15, nbSpeakers: 4, overtime:'always'};
+  public meetingDuration:number = 60; //TODO low values for testing purpose, to change
+  public talkingDuration:number = 15;
+  public nbSpeakers:number = 4;
 
-  private timerSub:Subscription | null = null;
+  public meetingDurationSubject = new BehaviorSubject<number>(this.meetingDuration);
+  public talkingDurationSubject = new BehaviorSubject<number>(this.talkingDuration);
 
-  private timeSubject = new BehaviorSubject<number>(0);
-  public time$ = this.timeSubject.asObservable();
-
-  private talkingTimeSubject = new BehaviorSubject<number>(0);
-  public talkingTime$ = this.talkingTimeSubject.asObservable();
+  public meetingDuration$ = this.meetingDurationSubject.asObservable();
+  public talkingDuration$ = this.talkingDurationSubject.asObservable();
 
 
-  constructor(private dataService:DataService<number>) {
-    this.dataService.meetingData.subscribe(data => {
-      this.data = data;
-      this.remainingTalkingTime = data.talkingDuration;
-      this.initialTalkingDuration = data.talkingDuration;
-    })
+  constructor() {
   }
 
-  startTimer() {
-    if (!this.timerSub) {
-      this.timerSub = interval(1000).subscribe(() => {
-        this.incrementTime();
-        this.handleMeetingDuration(this.data.meetingDuration);
-        this.handleTalkingDuration(this.data.talkingDuration);
-        console.log(this.time)
-      })
-      this.isRunning = true;
-    }
+  public changeMeetingDuration(seconds:number) {
+    this.meetingDuration += seconds;
+    this.adjustMeetingDurations(seconds);
+    this.updateDurations();
+
   }
 
-  pauseTimer() {
-    if (this.timerSub) {
-      this.timerSub.unsubscribe(); // Stop the timer by unsubscribing
-      this.timerSub = null;
-    }
-    this.isRunning = false;
+  public changeTalkingDuration(seconds:number) {
+    this.talkingDuration += seconds;
+    this.adjustTalkingDurations(seconds);
+    this.updateDurations();
   }
 
-  incrementTime() {
-    this.time++;
-    this.talkingTime++
-    this.timeSubject.next(this.time);
-    this.talkingTimeSubject.next(this.talkingTime);
-    this.remainingTalkingTime--;
+  public onNumberSpeakerChange(numberSpeakerEvent:number) {
+    this.nbSpeakers = numberSpeakerEvent;
+    this.talkingDuration = Math.floor(this.meetingDuration / this.nbSpeakers);
+    this.updateDurations()
   }
 
-  nextSpeaker() {
-    if (this.currentSpeaker < this.data.nbSpeakers) {
-      this.currentSpeaker++;
-      this.talkingTime = 0;
-      this.talkingTimeSubject.next(this.talkingTime);
-      if (this.data.overtime === 'overflow') {
-        this.data.talkingDuration = this.initialTalkingDuration + this.remainingTalkingTime;
+  private updateDurations() {
+    this.meetingDurationSubject.next(this.meetingDuration);
+    this.talkingDurationSubject.next(this.talkingDuration);
+  }
+
+  //round durations to closest 30s bound and adjust the timers depending on the number of speakers
+  private adjustMeetingDurations(seconds:number) {
+    if (seconds % 60 === 0) { //if negative then 0 else round to closest 60 bound
+      if (this.meetingDuration < 0) {
+        this.meetingDuration = 0;
+      } else {
+        this.meetingDuration -= this.meetingDuration % seconds;
       }
-      this.remainingTalkingTime = this.data.talkingDuration;
+    } else if (seconds % 30 === 0) { //if negative then 0 else round to closest 30 bound
+      if (this.meetingDuration <= 0) {
+        this.meetingDuration = 0;
+      } else {
+        this.meetingDuration -= this.meetingDuration % seconds;
+      }
     }
+
+    this.talkingDuration = Math.floor(this.meetingDuration / this.nbSpeakers);
   }
 
-  handleMeetingDuration(meetingDuration:number) {
-    if (this.time >= meetingDuration) {
-      this.pauseTimer();
-      //TODO make a popup saying the meeting is over
+  private adjustTalkingDurations(seconds:number) {
+    if (this.talkingDuration <= 0) {
+      this.talkingDuration = 0;
+    } else {
+      this.talkingDuration += this.talkingDuration % seconds;
     }
-  }
-
-  handleTalkingDuration(talkingDuration:number) {
-    if (this.talkingTime >= talkingDuration) {
-      switch (this.data.overtime) {
-        case 'overflow':
-        case 'always': {
-          this.data.meetingDuration++;
-          console.log("ALWAYS");
-          break;
-        }
-        case 'optional': {
-          console.log("OPTIONAL to be implemented");
-          break;
-        }
-        case 'never': {
-          console.log("NEVER")
-          this.talkingTime = 0
-          this.currentSpeaker++;
-          break;
-        }
-      } // end of switch
-    }//end of if
-  }
-
-
-  getTime() {
-    return this.time;
-  }
-
-  getIsRunning() {
-    return this.isRunning;
+    this.meetingDuration = Math.floor(this.talkingDuration * this.nbSpeakers);
   }
 
 }

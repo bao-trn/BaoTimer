@@ -14,10 +14,6 @@ export class DataService<T> {
     overtime:'always'
   }
 
-
-
-
-
   dataSource: BehaviorSubject<T | null> = new BehaviorSubject<T | null>(null);
   speakerData: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
   meetingData: BehaviorSubject<MeetingParameters> = new BehaviorSubject<MeetingParameters>(this.initialMeetingData);

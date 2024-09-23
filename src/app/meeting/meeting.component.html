@@ -6,23 +6,23 @@
   </header>
 
   <main>
-    <span class="speaker">Speaker {{durationService.currentSpeaker}}</span>
+    <span class="speaker">Speaker {{currentSpeaker}}</span>
 
     <div class="stopwatch">
       <span class="timer-label">Meeting</span>
-      <time>{{(durationService.time$ | async) ?? 0 | timeFormat}} of {{durationService.data.meetingDuration | timeFormat}}</time>
+      <time>{{time | timeFormat}} of {{meetingDuration | timeFormat}}</time>
       <span class="timer-label">Talking Duration</span>
-      <time>{{(durationService.talkingTime$ | async) ?? 0 | timeFormat}} of {{durationService.data.talkingDuration | timeFormat}}</time>
+      <time>{{talkingTime | timeFormat}} of {{talkingDuration| timeFormat}}</time>
     </div>
 
-    <time>{{durationService.remainingTalkingTime | timeFormat}}</time>
+    <time>{{remainingTalkingTime | timeFormat}}</time>
 
 
     <br>
     <div class="button-container">
-      <button class="timer-button" (click)="durationService.startTimer()">Start timer</button>
-      <button class="timer-button" (click)="durationService.pauseTimer()">Pause timer</button>
-      <button class="timer-button" (click)="durationService.nextSpeaker()">Next Speaker</button>
+      <button class="timer-button" (click)="startTimer()" [disabled]="isRunning">Start timer</button>
+      <button class="timer-button" (click)="pauseTimer()" [disabled]="!isRunning">Pause timer</button>
+      <button class="timer-button" (click)="nextSpeaker()">Next Speaker</button>
     </div>
   </main>
 

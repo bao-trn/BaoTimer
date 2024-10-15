@@ -15,6 +15,7 @@ export class MeetingComponent implements OnInit{
   meetingDuration:number = 0;
   talkingDuration:number = 0;
   isRunning:boolean = false;
+  popup:boolean = false;
 
   constructor(protected timerService:TimerService) {
   }
@@ -32,24 +33,40 @@ export class MeetingComponent implements OnInit{
     this.timerService.remainingTalkingTime$.subscribe(remaining => {
       this.remainingTalkingTime = remaining;
     })
+    this.timerService.isRunning$.subscribe(bool => {
+      this.isRunning = bool;
+    })
+    this.timerService.popUp$.subscribe(bool => {
+      this.popup = bool;
+    })
     this.timerService.meetingParams$.subscribe(params => {
       this.meetingDuration = params.meetingDuration;
       this.talkingDuration = params.talkingDuration;
+      console.log('talkin ' + this.talkingDuration.toString() + ('s'));
+      document.documentElement.style.setProperty('--animation-duration', this.talkingDuration.toString() + ('s'));
+      console.log('animation ' + document.documentElement.style.getPropertyValue('--animation-duration'))
+      console.log(this.isRunning);
     })
   }
 
   startTimer() {
     this.timerService.startTimer();
-    console.log(this.isRunning)
   }
 
   pauseTimer() {
     this.timerService.pauseTimer()
   }
 
+  resetTimer() {
+    this.timerService.resetTimer();
+  }
+
   nextSpeaker() {
     this.timerService.nextSpeaker();
   }
 
+  getNbSpeakers() {
+    return this.timerService.meetingParams.nbSpeakers;
+  }
 
 }

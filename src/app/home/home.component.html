@@ -8,18 +8,23 @@
 
   <main>
     <div class="left-body">
-      <h1>Standup Timer</h1>
+      <h1 class="title">Standup Timer</h1>
+      <img class="gif" src="/assets/gifs/itswork.webp" alt="shit">
     </div>
 
     <div class="right-body">
-      <div id="meeting-option">
+      <div class="meeting-option">
         <div class="timer" id="meeting-duration">
-          <span>The meeting duration will be </span>
-          <time>{{meetingDuration | timeFormat}} </time>
-          <button class="clickable" (click)="changeMeetingDuration(60)">+1min</button>
-          <button class="clickable" (click)="changeMeetingDuration(-60)">-1min</button>
-          <button class="clickable" (click)="changeMeetingDuration(30)">+3Os</button>
-          <button class="clickable" (click)="changeMeetingDuration(-30)">-30s</button>
+          <div class="timer-information">
+            <span>The meeting duration will be </span>
+            <time>{{meetingDuration | timeFormat}} </time>
+          </div>
+          <div class="clickable-container">
+            <button class="clickable" (click)="changeMeetingDuration(60)">+1min</button>
+            <button class="clickable" (click)="changeMeetingDuration(-60)">-1min</button>
+            <button class="clickable" (click)="changeMeetingDuration(30)">+3Os</button>
+            <button class="clickable" (click)="changeMeetingDuration(-30)">-30s</button>
+          </div>
         </div>
 
         <div class="timer">
@@ -30,13 +35,16 @@
 
 
         <div class="timer" id="talking-duration">
-          <span>Each speaking for </span>
-          <time>{{talkingDuration | timeFormat}} </time>
-          <button class="clickable" (click)="changeTalkingDuration(30)">+30s</button>
-          <button class="clickable" (click)="changeTalkingDuration(-30)">-30s</button>
+          <div class="timer-information">
+            <span>Each speaking for </span>
+            <time>{{talkingDuration | timeFormat}} </time>
+          </div>
+          <div class="clickable-container">
+            <button class="clickable" (click)="changeTalkingDuration(30)">+30s</button>
+            <button class="clickable" (click)="changeTalkingDuration(-30)">-30s</button>
+          </div>
         </div>
       </div>
-
 
       <h3> Allow overtime when a speaker's time is up</h3>
 
@@ -45,8 +53,6 @@
         <label for="OvertimeAlways"> Always </label>
         <input class="radio" type="radio" id="OvertimePool" name="overtime" [(ngModel)]="overtime" value="overflow">
         <label for="OvertimePool"> Overflow </label>
-        <input class="radio" type="radio" id="OvertimeOptional" name="overtime"  [(ngModel)]="overtime" value="optional">
-        <label for="OvertimeOptional"> Optional </label>
         <input class="radio" type="radio" id="OvertimeNever" name="overtime" [(ngModel)]="overtime" value="never">
         <label for="OvertimeNever"> Never </label>
       </div>
@@ -58,7 +64,7 @@
   </main>
 
   <footer>
-    BNP Paribas CIB
+    v0.1 Built by Bao
   </footer>
 </body>
 

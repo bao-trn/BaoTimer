@@ -1,12 +1,12 @@
 <body>
-  <header>
+  <header [ngClass]="{'overtime-active-hf': talkingTime > talkingDuration, '': talkingTime <= talkingDuration}">
     <nav>
-      <a class="cancel-meeting" routerLink="/home">Cancel Meeting</a>
+      <a class="cancel-meeting" (click)="resetTimer()" routerLink="/home">Cancel Meeting</a>
     </nav>
   </header>
 
-  <main>
-    <span class="speaker">Speaker {{currentSpeaker}}</span>
+  <main [ngClass]="{'overtime-inactive': (talkingTime <= talkingDuration) && (talkingTime > 0), 'overtime-active-main': talkingTime > talkingDuration}">
+    <span class="speaker">Speaker {{currentSpeaker}} out of {{getNbSpeakers()}}</span>
 
     <div class="stopwatch">
       <span class="timer-label">Meeting</span>
@@ -17,17 +17,16 @@
 
     <time>{{remainingTalkingTime | timeFormat}}</time>
 
-
-    <br>
     <div class="button-container">
       <button class="timer-button" (click)="startTimer()" [disabled]="isRunning">Start timer</button>
       <button class="timer-button" (click)="pauseTimer()" [disabled]="!isRunning">Pause timer</button>
       <button class="timer-button" (click)="nextSpeaker()">Next Speaker</button>
     </div>
+
   </main>
 
-  <footer>
-    BNP Paribas CIB
+  <footer [ngClass]="{'overtime-active-hf': talkingTime > talkingDuration, '': talkingTime <= talkingDuration}">
+    v0.1 Built by Bao
   </footer>
 </body>
 

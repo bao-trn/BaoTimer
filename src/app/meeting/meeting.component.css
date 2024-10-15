@@ -16,6 +16,10 @@
   font-style: normal;
 }
 
+:root {
+  --animation-duration: 15;
+}
+
 /* BNP Color Palette
 
 darker green: Hex: #007348
@@ -57,8 +61,8 @@ time {
   background-color: #39a87b;
   color: white;
   border: none;
-  padding: 0.5vh 1vw;
-  margin: 0.5vh 0.25vw;
+  padding: 0 1rem;
+  margin: 0 0.25rem;
   font-size: 16px;
   font-weight: bold;
   border-radius: 4px;
@@ -67,6 +71,7 @@ time {
   box-shadow: none;
   transition: background-color 0.3s ease;
   width: 100px;
+  height: 3rem
 }
 
 .timer-button:hover {
@@ -74,8 +79,39 @@ time {
 }
 
 .cancel-meeting {
-  color: black;
+  color: white;
   text-align: end;
   text-decoration: none;
 }
 
+.overtime-active-hf {
+  background-color: darkred;
+}
+
+.overtime-active-main {
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(to bottom, #ffffff, red);
+}
+
+.overtime-inactive {
+  height: 100%;
+  width: 100%;
+  animation: timerProgression var(--animation-duration) linear 1;
+  background-size: 100% 100%;
+}
+
+@keyframes timerProgression {
+  0% {
+    background: linear-gradient(to bottom, #8bc8aa, #ffffff);
+  }
+  33% {
+    background: linear-gradient(to bottom, #6abb97, #ffffff);
+  }
+  66% {
+    background: linear-gradient(to bottom, #39a87b, #ffffff);
+  }
+  100% {
+    background: linear-gradient(to bottom, #008755, #ffffff);
+  }
+}

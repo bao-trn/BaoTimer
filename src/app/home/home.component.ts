@@ -13,13 +13,12 @@ export class HomeComponent implements OnInit{
   public meetingDuration:number = 0;
   public talkingDuration:number = 0;
   public nbSpeakers:number = 0;
-  public overtime:string = 'always';
+  public overtime:string = 'overflow';
 
   constructor(private dataService:DataService<MeetingParameters>, private durationService:DurationService) {
   }
 
   ngOnInit(): void {
-    console.log(this.meetingDuration)
     this.durationService.meetingDuration$.subscribe(time => {
       this.meetingDuration = time;
     })

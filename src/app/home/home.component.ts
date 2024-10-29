@@ -25,7 +25,9 @@ export class HomeComponent implements OnInit{
     this.durationService.talkingDuration$.subscribe(time => {
       this.talkingDuration = time;
     })
-    this.nbSpeakers = this.durationService.nbSpeakers;
+    this.durationService.nbSpeakers$.subscribe(nb => {
+      this.nbSpeakers = nb;
+    })
   }
 
 

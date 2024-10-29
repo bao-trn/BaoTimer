@@ -7,15 +7,17 @@ import {BehaviorSubject} from "rxjs";
 
 export class DurationService {
 
-  public meetingDuration:number = 60; //TODO low values for testing purpose, to change
-  public talkingDuration:number = 15;
-  public nbSpeakers:number = 4;
+  public meetingDuration:number = 600;
+  public talkingDuration:number = 60;
+  public nbSpeakers:number = 10;
 
   public meetingDurationSubject = new BehaviorSubject<number>(this.meetingDuration);
   public talkingDurationSubject = new BehaviorSubject<number>(this.talkingDuration);
+  public nbSpeakersSubject = new BehaviorSubject<number>(this.nbSpeakers);
 
   public meetingDuration$ = this.meetingDurationSubject.asObservable();
   public talkingDuration$ = this.talkingDurationSubject.asObservable();
+  public nbSpeakers$ = this.nbSpeakersSubject.asObservable();
 
 
   constructor() {
@@ -24,25 +26,26 @@ export class DurationService {
   public changeMeetingDuration(seconds:number) {
     this.meetingDuration += seconds;
     this.adjustMeetingDurations(seconds);
-    this.updateDurations();
+    this.updateValues();
 
   }
 
   public changeTalkingDuration(seconds:number) {
     this.talkingDuration += seconds;
     this.adjustTalkingDurations(seconds);
-    this.updateDurations();
+    this.updateValues();
   }
 
   public onNumberSpeakerChange(numberSpeakerEvent:number) {
     this.nbSpeakers = numberSpeakerEvent;
     this.talkingDuration = Math.floor(this.meetingDuration / this.nbSpeakers);
-    this.updateDurations()
+    this.updateValues()
   }
 
-  private updateDurations() {
+  private updateValues() {
     this.meetingDurationSubject.next(this.meetingDuration);
     this.talkingDurationSubject.next(this.talkingDuration);
+    this.nbSpeakersSubject.next(this.nbSpeakers);
   }
 
   //round durations to closest 30s bound and adjust the timers depending on the number of speakers

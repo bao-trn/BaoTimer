@@ -1,31 +1,57 @@
 <body>
-  <header [ngClass]="{'overtime-active-hf': talkingTime > talkingDuration, '': talkingTime <= talkingDuration}">
+  <header [ngClass]="{'overtime-active-header-footer': talkingTime > talkingDuration, '': talkingTime <= talkingDuration}">
     <nav>
       <a class="cancel-meeting" (click)="resetTimer()" routerLink="/home">Cancel Meeting</a>
     </nav>
   </header>
 
-  <main [ngClass]="{'overtime-inactive': (talkingTime <= talkingDuration) && (talkingTime > 0), 'overtime-active-main': talkingTime > talkingDuration}">
-    <span class="speaker">Speaker {{currentSpeaker}} out of {{getNbSpeakers()}}</span>
+  <main>
 
-    <div class="stopwatch">
-      <span class="timer-label">Meeting</span>
-      <time>{{time | timeFormat}} of {{meetingDuration | timeFormat}}</time>
-      <span class="timer-label">Talking Duration</span>
-      <time>{{talkingTime | timeFormat}} of {{talkingDuration| timeFormat}}</time>
+    <!-- Sky -->
+    <div [ngClass]="{'animation-sunset-sky': (talkingTime > 0)}" class="sky">
+      <div class="cloud cloud1"></div>
+      <div class="cloud cloud2"></div>
+      <div class="cloud cloud3"></div>
+      <div class="cloud cloud4"></div>
+      <div class="cloud cloud5"></div>
+
+      <div class="sun-container">
+        <div [ngClass]="{'animation-sunset': (talkingTime > 0)}" class="sun"></div>
+      </div>
+
     </div>
 
-    <time>{{remainingTalkingTime | timeFormat}}</time>
+    <!-- Sun -->
 
-    <div class="button-container">
-      <button class="timer-button" (click)="startTimer()" [disabled]="isRunning">Start timer</button>
-      <button class="timer-button" (click)="pauseTimer()" [disabled]="!isRunning">Pause timer</button>
-      <button class="timer-button" (click)="nextSpeaker()">Next Speaker</button>
+
+    <!-- Stopwatch -->
+    <div class="stopwatch-container">
+      <div class="timer-container">
+        <span class="timer-label">Meeting</span>
+        <time>{{time | timeFormat}} of {{meetingDuration | timeFormat}}</time>
+        <span class="speaker">Speaker {{currentSpeaker}} out of {{getNbSpeakers()}}</span>
+        <span class="timer-label">Talking Duration</span>
+        <time>{{talkingTime | timeFormat}} of {{talkingDuration| timeFormat}}</time>
+      </div>
+
+      <div class="button-container">
+        <button class="timer-button" (click)="startTimer()" [disabled]="isRunning">Start timer</button>
+        <button class="timer-button" (click)="pauseTimer()" [disabled]="!isRunning">Pause timer</button>
+        <button class="timer-button" (click)="nextSpeaker()">Next Speaker</button>
+      </div>
+    </div>
+
+    <!-- Earth -->
+    <div class="polygon-container ">
+      <div [ngClass]="{'animation-sunset-curve1': (talkingTime > 0)}" class="polygon-curve-1"></div>
+      <div [ngClass]="{'animation-sunset-curve2': (talkingTime > 0)}" class="polygon-curve-2"></div>
+      <div [ngClass]="{'animation-sunset-curve3': (talkingTime > 0)}" class="polygon-curve-3"></div>
+      <div [ngClass]="{'animation-sunset-curve4': (talkingTime > 0)}" class="polygon-curve-4"></div>
     </div>
 
   </main>
 
-  <footer [ngClass]="{'overtime-active-hf': talkingTime > talkingDuration, '': talkingTime <= talkingDuration}">
+  <footer [ngClass]="{'overtime-active-header-footer': talkingTime > talkingDuration, '': talkingTime <= talkingDuration}">
     v0.1 Built by Bao
   </footer>
 </body>

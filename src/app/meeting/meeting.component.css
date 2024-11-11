@@ -35,7 +35,15 @@ main {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  position: relative;
+  z-index: 50; /* Ensure main content is above the polygon container */
 }
+
+.stopwatch-container {
+  top: 10%;
+  z-index: 51;
+}
+
 .speaker {
   font-size: 3rem;
   margin-bottom: 8vh;
@@ -50,7 +58,7 @@ time {
   margin-bottom: 5vh;
 }
 
-.stopwatch {
+.timer-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -78,40 +86,243 @@ time {
   background-color: #008755;
 }
 
+.button-container {
+  display: flex;
+  justify-content: center;
+}
+
 .cancel-meeting {
   color: white;
   text-align: end;
   text-decoration: none;
 }
 
-.overtime-active-hf {
-  background-color: darkred;
+.overtime-active-header-footer {
+  background-color: #290300;
 }
 
-.overtime-active-main {
-  height: 100%;
+/****************** CLOUDS ******************/
+
+.sky {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  background: #fcf4dc;
+  z-index: 5;
+}
+
+.cloud, .cloud1, .cloud2, .cloud3, .cloud4 {
+  z-index: 25
+}
+
+.cloud {
+  position: absolute;
+  background-color: #ffffff;
+  border-radius: 50px;
+  opacity: 1;
+}
+
+.cloud1 {
+  width: 150px;
+  height: 40px;
+  top: 63%;
+  left: 5%;
+  box-shadow: 50px -20px 0 5px purple;
+}
+
+.cloud2 {
+  width: 100px;
+  height: 35px;
+  top: 15%;
+  right: 15%;
+  box-shadow: -40px -15px 0 8px orange;
+}
+
+.cloud3 {
+  width: 150px;
+  height: 45px;
+  top: 30%;
+  left: 13%;
+  box-shadow: 35px -20px 0 5px red, 60px 15px 0 7px blue;
+}
+
+.cloud4 {
+  width: 100px;
+  height: 30px;
+  top: 50%;
+  right: 10%;
+  box-shadow: 35px -15px 0 8px red;
+}
+
+/****************** SUN ******************/
+
+.sun-container {
+  position: absolute;
+  bottom: 0;
   width: 100%;
-  background: linear-gradient(to bottom, #ffffff, red);
-}
-
-.overtime-inactive {
   height: 100%;
-  width: 100%;
-  animation: timerProgression var(--animation-duration) linear 1;
-  background-size: 100% 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  z-index: 10;
 }
 
-@keyframes timerProgression {
-  0% {
-    background: linear-gradient(to bottom, #8bc8aa, #ffffff);
-  }
-  33% {
-    background: linear-gradient(to bottom, #6abb97, #ffffff);
-  }
-  66% {
-    background: linear-gradient(to bottom, #39a87b, #ffffff);
+.sun {
+  position: absolute;
+  bottom: 100%;
+  width: 100px;
+  height: 100px;
+  background-color: red;
+  border-radius: 50%;
+  box-shadow: 0 0 50px 50px rgba(255, 165, 0, 0.3),
+  0 0 100px 100px rgba(255, 165, 0, 0.2),
+  0 0 150px 150px rgba(255, 165, 0, 0.1);
+  z-index: 15;
+}
+
+.sun::before,
+.sun::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  z-index: 14;
+}
+
+/* Inner halo */
+.sun::before {
+  width: 200px;
+  height: 200px;
+  background-color: rgba(255, 165, 0, 0.2);
+  top: -50px;
+  left: -50px;
+}
+
+/* Outer halo */
+.sun::after {
+  width: 300px;
+  height: 300px;
+  background-color: rgba(255, 165, 0, 0.1);
+  top: -100px;
+  left: -100px;
+}
+
+/****************** GREEN STUFF ******************/
+
+.polygon-container {
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 40;
+  pointer-events: none; /* no interaction with mouse */
+}
+
+.polygon-curve-1,
+.polygon-curve-2,
+.polygon-curve-3,
+.polygon-curve-4,
+.polygon-curve-5 {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 30vh;
+}
+
+.polygon-curve-1 {
+  background-color: #007348;
+  z-index: 45;
+  bottom: 0;
+  clip-path: polygon(0 70%, 20% 50%, 50% 60%, 80% 40%, 100% 60%, 100% 100%, 0 100%);
+}
+
+.polygon-curve-2 {
+  background-color: #008755;
+  z-index: 44;
+  clip-path: polygon(0 60%, 15% 45%, 40% 65%, 65% 45%, 85% 60%, 100% 55%, 100% 100%, 0 100%);
+  bottom: 20px;
+}
+
+.polygon-curve-3 {
+  background-color: #39a87b;
+  z-index: 43;
+  clip-path: polygon(0 55%, 25% 50%, 50% 70%, 75% 45%, 100% 65%, 100% 100%, 0 100%);
+  bottom: 40px;
+}
+
+.polygon-curve-4 {
+  background-color: #6abb97;
+  z-index: 42;
+  clip-path: polygon(0 50%, 20% 50%, 40% 40%, 60% 65%, 80% 45%, 100% 60%, 100% 100%, 0 100%);
+  bottom: 60px;
+}
+
+/************ ANIMATIONS ************/
+
+/* Sunset animation */
+
+.animation-sunset-sky {
+  animation: sunset-sky var(--animation-duration) linear 1 forwards;
+}
+.animation-sunset {
+  animation: sunset var(--animation-duration) linear 1 forwards;
+}
+.animation-sunset-hills {
+  animation: sunset-hills var(--animation-duration) linear 1 forwards;
+}
+.animation-sunset-curve1 {
+  animation: sunset-curve1 var(--animation-duration) linear 1 forwards;
+}
+.animation-sunset-curve2 {
+  animation: sunset-curve2 var(--animation-duration) linear 1 forwards;
+}
+.animation-sunset-curve3 {
+  animation: sunset-curve3 var(--animation-duration) linear 1 forwards;
+}
+.animation-sunset-curve4 {
+  animation: sunset-curve4 var(--animation-duration) linear 1 forwards;
+}
+
+
+@keyframes sunset-sky {
+  50% {
+    background: #f5d471;
   }
   100% {
-    background: linear-gradient(to bottom, #008755, #ffffff);
+    background: #fc9f2d;
   }
 }
+
+@keyframes sunset {
+  0% {
+    bottom: 100%; /* Starting at the top */
+    background-color: #FFA500; /* Bright orange */
+  }
+  100% {
+    bottom: -10%; /* Disappears below the horizon */
+    background-color: #e32600; /* Red-orange at sunset */
+  }
+}
+
+@keyframes sunset-curve1 {
+  100% {
+    background-color: #290300; /* Red-orange at sunset */
+  }
+}
+@keyframes sunset-curve2 {
+  100% {
+    background-color: #570600; /* Red-orange at sunset */
+  }
+}
+@keyframes sunset-curve3 {
+  100% {
+    background-color: #a80b00; /* Red-orange at sunset */
+  }
+}
+@keyframes sunset-curve4 {
+  100% {
+    background-color: #f51000; /* Red-orange at sunset */
+  }
+}
+
+
+

@@ -9,11 +9,11 @@
 
     <!-- Sky -->
     <div [ngClass]="{'animation-sunset-sky': (talkingTime > 0)}" class="sky">
-      <div class="cloud cloud1"></div>
-      <div class="cloud cloud2"></div>
-      <div class="cloud cloud3"></div>
-      <div class="cloud cloud4"></div>
-      <div class="cloud cloud5"></div>
+      <div [ngClass]="{'animation-clouds': (talkingTime > 0)}" class="cloud cloud1"></div>
+      <div [ngClass]="{'animation-clouds': (talkingTime > 0)}" class="cloud cloud2"></div>
+      <div [ngClass]="{'animation-clouds': (talkingTime > 0)}" class="cloud cloud3"></div>
+      <div [ngClass]="{'animation-clouds': (talkingTime > 0)}" class="cloud cloud4"></div>
+      <div [ngClass]="{'animation-clouds': (talkingTime > 0)}" class="cloud cloud5"></div>
 
       <div class="sun-container">
         <div [ngClass]="{'animation-sunset': (talkingTime > 0)}" class="sun"></div>

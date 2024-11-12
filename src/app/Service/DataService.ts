@@ -11,7 +11,6 @@ export class DataService<T> {
     meetingDuration: 60,
     talkingDuration: 15,
     nbSpeakers: 4,
-    overtime:'overflow'
   }
 
   dataSource: BehaviorSubject<T | null> = new BehaviorSubject<T | null>(null);

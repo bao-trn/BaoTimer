@@ -13,7 +13,6 @@ export class HomeComponent implements OnInit{
   public meetingDuration:number = 0;
   public talkingDuration:number = 0;
   public nbSpeakers:number = 0;
-  public overtime:string = 'overflow';
 
   constructor(private dataService:DataService<MeetingParameters>, private durationService:DurationService) {
   }
@@ -47,8 +46,7 @@ export class HomeComponent implements OnInit{
     const meetingDuration = this.meetingDuration;
     const talkingDuration = this.talkingDuration;
     const nbSpeakers = this.nbSpeakers;
-    const overtime = this.overtime;
-    const meetingParams: MeetingParameters = {meetingDuration, talkingDuration, nbSpeakers, overtime};
+    const meetingParams: MeetingParameters = {meetingDuration, talkingDuration, nbSpeakers};
     console.log("SENDING DATA");
     this.dataService.updateMeetingData(meetingParams)
   }

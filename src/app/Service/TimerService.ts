@@ -15,7 +15,7 @@ export class TimerService {
   public remainingTalkingTime:number = 0;
   public initialMeetingDuration:number= 0;
   public initialTalkingDuration:number = 0;
-  public meetingParams:MeetingParameters = {meetingDuration: 60, talkingDuration: 15, nbSpeakers: 4, overtime:'always'};
+  public meetingParams:MeetingParameters = {meetingDuration: 60, talkingDuration: 15, nbSpeakers: 4};
   public isRunning:boolean = false;
   public popUp:boolean = false;
 
@@ -82,16 +82,17 @@ export class TimerService {
   }
 
   public nextSpeaker() {
-    if (this.currentSpeaker < this.meetingParams.nbSpeakers) {
-      this.currentSpeaker++;
-      this.talkingTime = 0;
-      if (this.meetingParams.overtime === 'overflow') {
-        this.meetingParams.talkingDuration = this.initialTalkingDuration + this.remainingTalkingTime;
-      }
-      this.remainingTalkingTime = this.meetingParams.talkingDuration;
+    this.currentSpeaker++;
+    this.talkingTime = 0;
+    let extraMeetingTime = this.meetingParams.meetingDuration - this.initialMeetingDuration;
+    if (extraMeetingTime > 0 && this.remainingTalkingTime > 0) {
+      this.meetingParams.meetingDuration = this.initialMeetingDuration; // reset meetingDuration
+      this.meetingParams.talkingDuration = this.initialTalkingDuration + this.remainingTalkingTime - extraMeetingTime;
+
     } else {
-      this.popUp = true;
+      this.meetingParams.talkingDuration = this.initialTalkingDuration + this.remainingTalkingTime;
     }
+    this.remainingTalkingTime = this.meetingParams.talkingDuration;
     this.updateSubjects();
   }
 
@@ -102,33 +103,22 @@ export class TimerService {
       (this.currentSpeaker >= this.meetingParams.nbSpeakers && this.talkingTime >= this.meetingParams.talkingDuration)) {
       this.popUp = true;
       this.pauseTimer();
-      console.log("EHREHRHEHRE")
     }
   }
 
   private handleTalkingDuration(talkingDuration:number) {
     if (this.talkingTime > talkingDuration) {
-      switch (this.meetingParams.overtime) {
-        case 'overflow':
-        case 'always': {
-          this.meetingParams.meetingDuration++;
-          this.remainingTalkingTime += 2; //increment by 2s to counterbalance the -1s in incrementTime()
-          break;
-        }
-        case 'never': {
-          this.talkingTime = 0
-          this.nextSpeaker();
-          break;
-        }
-      } // end of switch
-    }//end of if
+      this.meetingParams.meetingDuration++;
+    }
   }
 
   private incrementTime() {
     if (this.time < this.meetingParams.meetingDuration) {
       this.time++;
       this.talkingTime++
-      this.remainingTalkingTime--;
+      if (this.remainingTalkingTime > 0) {
+        this.remainingTalkingTime--;
+      }
       this.updateSubjects();
     }
   }

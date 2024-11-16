@@ -44,6 +44,10 @@ main {
   z-index: 51;
 }
 
+.overtime-stopwatch {
+  color: white;
+}
+
 .speaker {
   font-size: 3rem;
   margin-bottom: 8vh;
@@ -268,30 +272,40 @@ lighter green: Hex: #8bc8aa
 
 /************ ANIMATIONS ************/
 
+.pause-animation {
+  animation-play-state: paused !important;
+}
+
 /* Sunset animation */
 
 .animation-sunset-sky {
   animation: sunset-sky var(--animation-duration) linear 1 forwards;
+  animation-play-state: running;
 }
 .animation-sunset {
   animation: sunset var(--animation-duration) linear 1 forwards;
+  animation-play-state: running;
 }
 .animation-sunset-curve1 {
   animation: sunset-curve1 var(--animation-duration) linear 1 forwards;
+  animation-play-state: running;
 }
 .animation-sunset-curve2 {
   animation: sunset-curve2 var(--animation-duration) linear 1 forwards;
+  animation-play-state: running;
 }
 .animation-sunset-curve3 {
   animation: sunset-curve3 var(--animation-duration) linear 1 forwards;
+  animation-play-state: running;
 }
 .animation-sunset-curve4 {
   animation: sunset-curve4 var(--animation-duration) linear 1 forwards;
+  animation-play-state: running;
 }
 .animation-clouds {
   animation: overtime-cloud var(--animation-duration) linear 1 forwards;
+  animation-play-state: running;
 }
-
 
 @keyframes sunset-sky {
   50% {

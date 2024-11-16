@@ -42,10 +42,7 @@ export class MeetingComponent implements OnInit{
     this.timerService.meetingParams$.subscribe(params => {
       this.meetingDuration = params.meetingDuration;
       this.talkingDuration = params.talkingDuration;
-      console.log('talkin ' + this.talkingDuration.toString() + ('s'));
       document.documentElement.style.setProperty('--animation-duration', this.talkingDuration.toString() + ('s'));
-      console.log('animation ' + document.documentElement.style.getPropertyValue('--animation-duration'))
-      console.log(this.isRunning);
     })
   }
 
@@ -55,6 +52,7 @@ export class MeetingComponent implements OnInit{
 
   pauseTimer() {
     this.timerService.pauseTimer()
+    console.log(this.isRunning)
   }
 
   resetTimer() {

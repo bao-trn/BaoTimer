@@ -8,15 +8,15 @@
   <main>
 
     <!-- Sky -->
-    <div [ngClass]="{'animation-sunset-sky': (talkingTime > 0)}" class="sky">
-      <div [ngClass]="{'animation-clouds': (talkingTime > 0)}" class="cloud cloud1"></div>
-      <div [ngClass]="{'animation-clouds': (talkingTime > 0)}" class="cloud cloud2"></div>
-      <div [ngClass]="{'animation-clouds': (talkingTime > 0)}" class="cloud cloud3"></div>
-      <div [ngClass]="{'animation-clouds': (talkingTime > 0)}" class="cloud cloud4"></div>
-      <div [ngClass]="{'animation-clouds': (talkingTime > 0)}" class="cloud cloud5"></div>
+    <div [ngClass]="{'animation-sunset-sky': (talkingTime > 0), 'pause-animation': !isRunning}" class="sky">
+      <div [ngClass]="{'animation-clouds': (talkingTime > 0), 'pause-animation': !isRunning}" class="cloud cloud1"></div>
+      <div [ngClass]="{'animation-clouds': (talkingTime > 0), 'pause-animation': !isRunning}" class="cloud cloud2"></div>
+      <div [ngClass]="{'animation-clouds': (talkingTime > 0), 'pause-animation': !isRunning}" class="cloud cloud3"></div>
+      <div [ngClass]="{'animation-clouds': (talkingTime > 0), 'pause-animation': !isRunning}" class="cloud cloud4"></div>
+      <div [ngClass]="{'animation-clouds': (talkingTime > 0), 'pause-animation': !isRunning}" class="cloud cloud5"></div>
 
       <div class="sun-container">
-        <div [ngClass]="{'animation-sunset': (talkingTime > 0)}" class="sun"></div>
+        <div [ngClass]="{'animation-sunset': (talkingTime > 0), 'pause-animation': !isRunning}" class="sun"></div>
       </div>
 
     </div>
@@ -25,7 +25,7 @@
 
 
     <!-- Stopwatch -->
-    <div class="stopwatch-container">
+    <div [ngClass]="{'overtime-stopwatch': (talkingTime > talkingDuration)}" class="stopwatch-container">
       <div class="timer-container">
         <span class="timer-label">Meeting</span>
         <time>{{time | timeFormat}} of {{meetingDuration | timeFormat}}</time>
@@ -43,16 +43,16 @@
 
     <!-- Earth -->
     <div class="polygon-container ">
-      <div [ngClass]="{'animation-sunset-curve1': (talkingTime > 0)}" class="polygon-curve-1"></div>
-      <div [ngClass]="{'animation-sunset-curve2': (talkingTime > 0)}" class="polygon-curve-2"></div>
-      <div [ngClass]="{'animation-sunset-curve3': (talkingTime > 0)}" class="polygon-curve-3"></div>
-      <div [ngClass]="{'animation-sunset-curve4': (talkingTime > 0)}" class="polygon-curve-4"></div>
+      <div [ngClass]="{'animation-sunset-curve1': (talkingTime > 0), 'pause-animation': !isRunning}" class="polygon-curve-1"></div>
+      <div [ngClass]="{'animation-sunset-curve2': (talkingTime > 0), 'pause-animation': !isRunning}" class="polygon-curve-2"></div>
+      <div [ngClass]="{'animation-sunset-curve3': (talkingTime > 0), 'pause-animation': !isRunning}" class="polygon-curve-3"></div>
+      <div [ngClass]="{'animation-sunset-curve4': (talkingTime > 0), 'pause-animation': !isRunning}" class="polygon-curve-4"></div>
     </div>
 
   </main>
 
   <footer [ngClass]="{'overtime-active-header-footer': talkingTime > talkingDuration, '': talkingTime <= talkingDuration}">
-    v0.1 Built by Bao
+    v0.2 Built by Bao
   </footer>
 </body>
 

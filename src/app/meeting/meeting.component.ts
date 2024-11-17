@@ -17,6 +17,8 @@ export class MeetingComponent implements OnInit{
   isRunning:boolean = false;
   popup:boolean = false;
 
+  endGifs:string[] = []
+
   constructor(protected timerService:TimerService) {
   }
 

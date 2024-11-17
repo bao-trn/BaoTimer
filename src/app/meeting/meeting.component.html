@@ -37,7 +37,7 @@
       <div class="button-container">
         <button class="timer-button" (click)="startTimer()" [disabled]="isRunning">Start timer</button>
         <button class="timer-button" (click)="pauseTimer()" [disabled]="!isRunning">Pause timer</button>
-        <button class="timer-button" (click)="nextSpeaker()">Next Speaker</button>
+        <button class="timer-button" *ngIf="currentSpeaker < getNbSpeakers()" (click)="nextSpeaker()">Next Speaker</button>
       </div>
     </div>
 

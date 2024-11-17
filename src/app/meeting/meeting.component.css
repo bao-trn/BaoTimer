@@ -183,7 +183,7 @@ lighter green: Hex: #8bc8aa
 
 .sun {
   position: absolute;
-  bottom: 100%;
+  bottom: 110%;
   width: 100px;
   height: 100px;
   background-color: red;

@@ -82,18 +82,20 @@ export class TimerService {
   }
 
   public nextSpeaker() {
-    this.currentSpeaker++;
-    this.talkingTime = 0;
-    let extraMeetingTime = this.meetingParams.meetingDuration - this.initialMeetingDuration;
-    if (extraMeetingTime > 0 && this.remainingTalkingTime > 0) {
-      this.meetingParams.meetingDuration = this.initialMeetingDuration; // reset meetingDuration
-      this.meetingParams.talkingDuration = this.initialTalkingDuration + this.remainingTalkingTime - extraMeetingTime;
+    if (this.currentSpeaker < this.meetingParams.nbSpeakers) {
+      this.currentSpeaker++;
+      this.talkingTime = 0;
+      let extraMeetingTime = this.meetingParams.meetingDuration - this.initialMeetingDuration;
+      if (extraMeetingTime > 0 && this.remainingTalkingTime > 0) {
+        this.meetingParams.meetingDuration = this.initialMeetingDuration; // reset meetingDuration
+        this.meetingParams.talkingDuration = this.initialTalkingDuration + this.remainingTalkingTime - extraMeetingTime;
 
-    } else {
-      this.meetingParams.talkingDuration = this.initialTalkingDuration + this.remainingTalkingTime;
+      } else {
+        this.meetingParams.talkingDuration = this.initialTalkingDuration + this.remainingTalkingTime;
+      }
+      this.remainingTalkingTime = this.meetingParams.talkingDuration;
+      this.updateSubjects();
     }
-    this.remainingTalkingTime = this.meetingParams.talkingDuration;
-    this.updateSubjects();
   }
 
   private handleMeetingDuration(meetingDuration:number) {
